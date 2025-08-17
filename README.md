@@ -23,17 +23,6 @@ Raven stands out compared to traditional subdomain enumeration techniques due to
 - Automatically downloads a default wordlist if none is provided.
 - Validates and cleans wordlists, removing invalid entries (e.g., empty lines, trailing dots).
 
-##### User-Friendly Output
-- Outputs subdomains in a clean format:  
-  `https://subdomain.domain`
-- Optional validation (`--validation`) shows color-coded HTTP status codes:
-  - `100-199`: Cyan  
-  - `200-299`: Green  
-  - `300-399`: Yellow  
-  - `400-499`: Red  
-  - `500-599`: Purple  
-- Silent mode (`--silent`) available for scripting.
-
 ##### Advanced Configuration
 - Supports custom HTTP methods (`--method`), headers (`--header`), and proxies (`--proxy`).
 - Validation mode (`--validation`) provides quick analysis via status codes.
@@ -107,7 +96,7 @@ Run Raven with the required `--domain` flag and optional parameters:
 | Flag             | Shorthand | Description                                   | Default                      |
 |------------------|-----------|-----------------------------------------------|------------------------------|
 | `--domain`       | `-d`      | Target domain to scan (required)              | —                            |
-| `--wordlist`     | `-w`      | Path to wordlist file                         | `/tmp/raven/wordlist.txt`    |
+| `--wordlist`     | `-w`      | Path to wordlist file                         | `/tmp/.raven/wordlist.txt`    |
 | `--header`       | `-H`      | Custom HTTP headers                           | —                            |
 | `--method`       | `-m`      | HTTP method                                   | `GET`                        |
 | `--output`       | `-o`      | Output file to save results                   | —                            |
@@ -142,7 +131,7 @@ Run Raven with the required `--domain` flag and optional parameters:
 
 **Filter Specific Status Codes**
 ```bash
-./raven -d example.com -f 404,403 -v
+./raven -d example.com -f 404,403 
 ```
 
 **Save Results to File**
@@ -168,4 +157,4 @@ Contributions are welcome! [GitHub repository](https://github.com/Nowafen/Raven)
 ---
 
 ## License
-Raven is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+Raven is licensed under the **BSD 3-Clause License**. See the [LICENSE](LICENSE) file for details.
