@@ -88,7 +88,7 @@ go install github.com/Nowafen/Raven/cmd/raven@latest
 Run Raven with the required `--domain` flag and optional parameters:
 
 ```bash
-./raven --domain example.com
+raven --domain example.com
 ```
 
 #### Available Flags
@@ -116,37 +116,37 @@ Run Raven with the required `--domain` flag and optional parameters:
 
 **Basic Scan**
 ```bash
-./raven -d example.com
+raven -d example.com
 ```
 
 **Scan with Validation**
 ```bash
-./raven -d example.com -v
+raven -d example.com -v
 ```
 
 **Custom Wordlist & Threads**
 ```bash
-./raven -d example.com -w wordlist.txt -t 50 -v
+raven -d example.com -w wordlist.txt -t 50 -v
 ```
 
 **Filter Specific Status Codes**
 ```bash
-./raven -d example.com -f 404,403 
+raven -d example.com -f 404,403 
 ```
 
 **Save Results to File**
 ```bash
-./raven -d example.com -o results.txt
+raven -d example.com -o results.txt
 ```
 
 **Silent Mode**
 ```bash
-./raven -d example.com --silent
+raven -d example.com --silent
 ```
 
 **Update Tool**
 ```bash
-./raven --update
+raven --update
 ```
 
 ---
