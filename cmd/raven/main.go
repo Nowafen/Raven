@@ -132,5 +132,5 @@ func main() {
         fmt.Printf("[\033[96m*\033[0m] Scanning completed. Results saved to: %s\n", cfg.Output)
     }
     fmt.Printf("[\033[96m*\033[0m] Total subdomains found: %d\n", len(results))
-    fmt.Printf("[\033[96mINF\033[0m] Scan completed in %.2fm\n", duration)
+    fmt.Printf("[\033[96m*\033[0m] Scan completed in %.2fm\n", duration)
 }
