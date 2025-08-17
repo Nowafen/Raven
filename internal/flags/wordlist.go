@@ -53,9 +53,9 @@ func ReadWordlist(path string, silent bool) ([]string, error) {
     // Validate and clean wordlist
     cleanedWords, cleaned := cleanWordlist(words)
     if cleaned && !silent {
-        fmt.Println("[ \033[96m*\033[0m] Validating wordlist...")
-        fmt.Println("[ \033[96m*\033[0m] We made the wordlist valid")
-        fmt.Println("[ \033[96m*\033[0m] Now wordlist is valid")
+        fmt.Println("[\033[96m*\033[0m] Validating wordlist...")
+        fmt.Println("[\033[96m*\033[0m] We made the wordlist valid")
+        fmt.Println("[\033[96m*\033[0m] Now wordlist is valid")
     }
     return cleanedWords, nil
 }
@@ -82,7 +82,7 @@ func downloadDefaultWordlist(silent bool) error {
 
     // Show downloading message unless in silent mode
     if !silent {
-        fmt.Println("[ \033[96m*\033[0m] Downloading default wordlist...")
+        fmt.Println("[\033[96m*\033[0m] Downloading default wordlist...")
     }
 
     resp, err := http.Get(DefaultWordlistURL)
