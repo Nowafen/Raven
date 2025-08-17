@@ -29,7 +29,7 @@ func OutputResults(results []Result, cfg Config) {
         var err error
         outputFile, err = os.Create(cfg.Output)
         if err != nil {
-            fmt.Fprintf(os.Stderr, "[*] Error creating output file: %v\n", err)
+            fmt.Fprintf(os.Stderr, "[ \033[96m*\033[0m] Error creating output file: %v\n", err)
             return
         }
         defer outputFile.Close()
