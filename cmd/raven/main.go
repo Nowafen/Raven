@@ -74,7 +74,7 @@ func main() {
 
     // Show configuration unless silent mode is enabled
     if !cfg.Silent {
-        fmt.Printf("[ \033[96m*\033[0m] Target Domain: %s\n", cfg.Domain)
+        fmt.Printf("[\033[96m*\033[0m] Target Domain: %s\n", cfg.Domain)
         if cfg.Wordlist != "" {
             fmt.Printf("[\033[96m*\033[0m] Wordlist: %s\n", cfg.Wordlist)
         } else {
