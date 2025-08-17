@@ -1,6 +1,0 @@
-api
-admin
-frontend
-backend
-
-
