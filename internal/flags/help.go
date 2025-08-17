@@ -11,7 +11,7 @@ Usage: raven [options]
 
 Options:
   -d, --domain <domain>        Target domain to scan (e.g., google.com) [required]
-  -w, --wordlist <path>        Path to wordlist file (optional, defaults to .raven/wordlist.txt)
+  -w, --wordlist <path>        Path to wordlist file (optional, defaults to /tmp/.raven/wordlist.txt)
   -H, --header <header:value>  Custom HTTP headers (e.g., -H Cookie:abcd)
   -m, --method <method>        HTTP method to use (default: GET)
   -o, --output <path>          Output file to save results
@@ -25,3 +25,4 @@ Options:
   --version                    Show the tool version
   --help                       Show this help message
 `)
+}
