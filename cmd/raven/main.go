@@ -3,6 +3,7 @@ package main
 import (
     "fmt"
     "os"
+    "time"
     "github.com/Nowafen/Raven/internal/discovery"
     "github.com/Nowafen/Raven/internal/flags"
 )
@@ -43,20 +44,23 @@ func main() {
     // Handle update flag
     if cfg.Update {
         if err := flags.UpdateBinary(); err != nil {
-            fmt.Fprintf(os.Stderr, "[ \033[96m*\033[0m] Error updating binary: %v\n", err)
+            fmt.Fprintf(os.Stderr, "[\033[96m*\033[0m] Error updating binary: %v\n", err)
             os.Exit(1)
         }
-        fmt.Println("[ \033[96m*\033[0m] Binary updated successfully")
+        fmt.Println("[\033[96m*\033[0m] Binary updated successfully")
         os.Exit(0)
     }
 
     // Show banner unless silent mode is enabled
     if !cfg.Silent {
         fmt.Print(`
-=======================================
-       Raven - Subdomain Discovery Tool
-       Version: ` + flags.Version + `
-=======================================
+    ____                       
+   / __ \ ____ __  _____  ____ 
+  / /_/ / __  / | / / _ \/ __ \
+ / _, _/ /_/ /| |/ /  __/ / / /
+/_/ |_|\__,_/ |___/\___/_/ /_/ 
+                        Version:` + flags.Version + `
+
 `)
     }
 
@@ -100,6 +104,9 @@ func main() {
         os.Exit(1)
     }
 
+    // Start timer
+    startTime := time.Now()
+
     if !cfg.Silent {
         fmt.Println("[\033[96m*\033[0m] Scanning started...")
     }
@@ -110,6 +117,9 @@ func main() {
         fmt.Fprintf(os.Stderr, "[\033[96m*\033[0m] Error: %v\n", err)
         os.Exit(1)
     }
+
+    // Calculate duration
+    duration := time.Since(startTime).Minutes()
 
     // Output results
     flags.OutputResults(results, cfg)
@@ -122,5 +132,5 @@ func main() {
         fmt.Printf("[\033[96m*\033[0m] Scanning completed. Results saved to: %s\n", cfg.Output)
     }
     fmt.Printf("[\033[96m*\033[0m] Total subdomains found: %d\n", len(results))
-    fmt.Println("[\033[96m*\033[0m] Finished.")
+    fmt.Printf("[\033[96m*\033[0m] Scan completed in %.2fm\n", duration)
 }
