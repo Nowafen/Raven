@@ -28,9 +28,9 @@ func main() {
         if err != nil {
             fmt.Fprintf(os.Stderr, "[\033[96m*\033[0m] Error checking version: %v\n", err)
         } else if latestVersion == flags.Version {
-            fmt.Printf("[\033[96m*\033[0m] Raven is up to date (version: %s)\n", flags.Version)
+            fmt.Printf("[\033[96m*\033[0m] Raven is up to date (version: \033[92m%s\033[0m)\n", flags.Version)
         } else {
-            fmt.Printf("[\033[96m*\033[0m] \033[92mA new version of Raven is available: %s (current: %s)\033[0m\n", latestVersion, flags.Version)
+            fmt.Printf("[\033[96m*\033[0m] \033[92mA new version of Raven is available: \033[92m%s\033[0m (current: \033[91m%s\033[0m)\033[0m\n", latestVersion, flags.Version)
         }
         os.Exit(0)
     }
@@ -74,7 +74,7 @@ func main() {
 
     // Show configuration unless silent mode is enabled
     if !cfg.Silent {
-        fmt.Printf("[\033[96m*\033[0m] Target Domain: %s\n", cfg.Domain)
+        fmt.Printf("[ \033[96m*\033[0m] Target Domain: %s\n", cfg.Domain)
         if cfg.Wordlist != "" {
             fmt.Printf("[\033[96m*\033[0m] Wordlist: %s\n", cfg.Wordlist)
         } else {
@@ -132,5 +132,5 @@ func main() {
         fmt.Printf("[\033[96m*\033[0m] Scanning completed. Results saved to: %s\n", cfg.Output)
     }
     fmt.Printf("[\033[96m*\033[0m] Total subdomains found: %d\n", len(results))
-    fmt.Printf("[\033[96m*\033[0m] Scan completed in %.2fm\n", duration)
+    fmt.Printf("[\033[96mINF\033[0m] Scan completed in %.2fm\n", duration)
 }
