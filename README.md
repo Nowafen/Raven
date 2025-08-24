@@ -179,14 +179,6 @@ raven --update
 raven -h        # Concise help
 raven --help    # Detailed help
 ```
-
-**Error Handling**
-
-```bash
-raven
-# Output: For usage and help, use the --help flag
-```
-
 ---
 
 ### Contributing
