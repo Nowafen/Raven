@@ -12,7 +12,11 @@ import (
 // NewClient creates a new HTTP client with the given configuration
 func NewClient(cfg flags.Config) (*http.Client, error) {
     transport := &http.Transport{
-        TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+        TLSClientConfig:     &tls.Config{InsecureSkipVerify: true},
+        MaxIdleConns:        1000, // Increased for high concurrency
+        MaxIdleConnsPerHost: 200,  // Increased for more connections per host
+        IdleConnTimeout:     90 * time.Second,
+        MaxConnsPerHost:     500,  // New: limit max connections per host
     }
     if cfg.Proxy != "" {
         proxyURL, err := http.ProxyFromEnvironment(&http.Request{URL: nil})
@@ -24,7 +28,7 @@ func NewClient(cfg flags.Config) (*http.Client, error) {
 
     client := &http.Client{
         Transport: transport,
-        Timeout:   10 * time.Second,
+        Timeout:   10 * time.Second, // Reduced timeout for faster failures
     }
     return client, nil
 }
