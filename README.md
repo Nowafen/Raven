@@ -87,7 +87,7 @@ go build -o raven ./cmd/raven
 #### From Go
 
 ```bash
-go install github.com/Nowafen/Raven/cmd/raven@latest
+go install -v github.com/Nowafen/Raven/cmd/raven@latest
 ```
 
 ---
