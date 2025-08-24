@@ -17,37 +17,39 @@ const DefaultWordlistURL = "https://raw.githubusercontent.com/Nowafen/Raven/refs
 const DefaultWordlistPath = "/tmp/.raven/wordlist.txt"
 
 // ReadWordlist reads the wordlist from the given path or downloads the default
-func ReadWordlist(path string, silent bool) ([]string, error) {
+func ReadWordlist(path string, silent bool) ([]string, int, error) {
     if path == "" {
         path = DefaultWordlistPath
         if err := downloadDefaultWordlist(silent); err != nil {
-            return nil, err
+            return nil, 0, err
         }
     }
 
     if !strings.HasSuffix(path, ".txt") {
-        return nil, errors.New("wordlist must be a .txt file")
+        return nil, 0, errors.New("wordlist must be a .txt file")
     }
 
     file, err := os.Open(path)
     if err != nil {
-        return nil, err
+        return nil, 0, err
     }
     defer file.Close()
 
     var words []string
+    lineCount := 0
     scanner := bufio.NewScanner(file)
     for scanner.Scan() {
         word := scanner.Text()
+        lineCount++
         if word != "" {
             words = append(words, word)
         }
     }
     if err := scanner.Err(); err != nil {
-        return nil, err
+        return nil, 0, err
     }
     if len(words) == 0 {
-        return nil, errors.New("wordlist is empty")
+        return nil, 0, errors.New("wordlist is empty")
     }
 
     // Validate and clean wordlist
@@ -57,7 +59,7 @@ func ReadWordlist(path string, silent bool) ([]string, error) {
         fmt.Println("[\033[96m*\033[0m] We made the wordlist valid")
         fmt.Println("[\033[96m*\033[0m] Now wordlist is valid")
     }
-    return cleanedWords, nil
+    return cleanedWords, lineCount, nil
 }
 
 // ValidateWordlist validates the wordlist path
