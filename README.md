@@ -87,7 +87,7 @@ go build -o raven ./cmd/raven
 #### From Go
 ###### Install the binary
 ```bash
-curl -L -o raven https://github.com/Nowafen/Raven/releases/download/v0.1.1/raven
+curl -L -o raven https://github.com/Nowafen/Raven/releases/download/v0.1.2/raven
 chmod +x raven
 ```
 ###### Move the Binary to a System Path (Optional):
