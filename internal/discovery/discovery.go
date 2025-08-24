@@ -14,12 +14,7 @@ import (
 )
 
 // ScanSubdomains scans subdomains using a worker pool
-func ScanSubdomains(cfg flags.Config) ([]flags.Result, error) {
-    words, err := flags.ReadWordlist(cfg.Wordlist, cfg.Silent)
-    if err != nil && err.Error() != "wordlist was cleaned due to invalid entries" {
-        return nil, err
-    }
-
+func ScanSubdomains(cfg flags.Config, words []string) ([]flags.Result, error) {
     // Create temporary file for subdomains
     tmpFile, err := ioutil.TempFile("", "raven-subdomains-*.txt")
     if err != nil {
@@ -46,9 +41,9 @@ func ScanSubdomains(cfg flags.Config) ([]flags.Result, error) {
 
     var results []flags.Result
     var mu sync.Mutex
-    jobs := make(chan string, 10000) // Large buffer for big wordlists
-    resultsChan := make(chan flags.Result, 10000)
-    limiter := rate.NewLimiter(rate.Limit(10), 10) // Max 10 requests per second
+    jobs := make(chan string, 100000)
+    resultsChan := make(chan flags.Result, 100000)
+    limiter := rate.NewLimiter(rate.Limit(cfg.RateLimit), int(cfg.RateLimit))
     ctx := context.Background()
 
     var wg sync.WaitGroup
@@ -64,7 +59,6 @@ func ScanSubdomains(cfg flags.Config) ([]flags.Result, error) {
                 if err != nil {
                     continue
                 }
-                // Skip if response contains IIS Windows Server title
                 if strings.Contains(string(body), "<title>IIS Windows Server</title>") {
                     continue
                 }
@@ -81,7 +75,6 @@ func ScanSubdomains(cfg flags.Config) ([]flags.Result, error) {
         }()
     }
 
-    // Stream subdomains from temporary file
     file, err := os.Open(tmpFile.Name())
     if err != nil {
         return nil, err
@@ -89,7 +82,7 @@ func ScanSubdomains(cfg flags.Config) ([]flags.Result, error) {
     defer file.Close()
 
     scanner := bufio.NewScanner(file)
-    scanner.Buffer(make([]byte, 0, 64*1024), 1024*1024) // Optimize buffer for large files
+    scanner.Buffer(make([]byte, 0, 64*1024), 1024*1024)
     for scanner.Scan() {
         jobs <- scanner.Text()
     }
@@ -110,7 +103,7 @@ func ScanSubdomains(cfg flags.Config) ([]flags.Result, error) {
 // shouldInclude checks if the status code matches the filter/match criteria
 func shouldInclude(statusCode int, cfg flags.Config) bool {
     if statusCode == 0 {
-        return false // No response means invalid subdomain
+        return false
     }
     if len(cfg.FilterStatus) > 0 {
         for _, code := range cfg.FilterStatus {
