@@ -11,7 +11,7 @@ import (
 const Version = "0.1.0"
 
 // VersionURL is the URL to check the latest version
-const VersionURL = "https://raw.githubusercontent.com/Nowafen/Raven/main/Version"
+const VersionURL = "https://github.com/Nowafen/Raven/raw/refs/heads/main/Version"
 
 // CheckVersion checks if the current version is outdated
 func CheckVersion() (bool, error) {
