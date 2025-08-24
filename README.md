@@ -187,31 +187,3 @@ raven
 
 Contributions are welcome! [GitHub repository](https://github.com/Nowafen/Raven).
 
----
-
-## 🚀 What's New in This Release
-
-### 🔧 Enhancements
-
-* Increased maximum number of concurrent threads from **300 → 1000**.
-* Added new `--rate-limit (-r)` flag for request throttling (default: **100 requests/sec**).
-* Improved error handling: running Raven without flags now shows
-  `For usage and help, use the --help flag`.
-* Added `-h` shorthand for concise help output (alongside `--help` for detailed help).
-* Expanded flexibility for custom configurations, including threads + rate-limit combinations.
-
-### 🛠 Fixes & Improvements
-
-* Clarified **error messages** for incorrect usage.
-* Enhanced **flag parsing** documentation.
-* Improved **wordlist handling and validation**.
-* Fixed minor inconsistencies in configuration documentation.
-
-### 📚 Documentation
-
-* Updated README examples with new usage patterns:
-
-  * Threads and rate-limit used together (`-t 200 -r 500`).
-  * Help section (`-h` vs `--help`).
-* Improved workflow explanation for **Flag Parsing** and **Error Handling**.
-* Added details about request rate-limiting defaults.
