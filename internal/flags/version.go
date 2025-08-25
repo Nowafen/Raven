@@ -9,7 +9,7 @@ import (
 )
 
 // Version is the current version of the Raven tool
-const Version = "0.1.3"
+const Version = "0.1.2"
 
 // VersionURL is the URL to check the latest version and binary URL
 const VersionURL = "https://raw.githubusercontent.com/Nowafen/Raven/refs/heads/main/Version.json"
